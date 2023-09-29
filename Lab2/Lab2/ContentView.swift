@@ -19,35 +19,35 @@ struct ContentView: View {
         Student(name: "Песик", imageName: "dog_photo"),
         Student(name: "Качечка", imageName: "duck_photo")
     ]
-
+    
     let staticBiographyText = "Це група кн-31, яка відправилась на відпочинок на Мальдівах"
-
+    
     var body: some View {
-        VStack {
-            List(students) { student in
-                HStack {
-                    Image(student.imageName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        .frame(width: 80, height: 80)
-                        .clipShape(Circle())
-
-                    Text(student.name)
+        ScrollView {
+            VStack(alignment: .leading) { // Вирівнюємо по лівому краю
+                ForEach(students) { student in
+                    HStack {
+                        Image(student.imageName)
+                            .resizable()
+                            .aspectRatio(contentMode: .fill)
+                            .frame(width: 80, height: 80)
+                            .clipShape(Circle())
+                        Text(student.name)
+                    }
                 }
+                
+                Image("maldives")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(width: 300, height: 300)
+                    .clipShape(Circle())
+                    .padding()
+                
+                Text(staticBiographyText)
+                    .padding()
             }
-            .listStyle(PlainListStyle())  // Optional: To remove default list styling
-
-            Image("maldives")  // Add the image for Maldives
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(width: 300, height: 300)
-                .clipShape(Circle())
-                .padding()
-
-            Text(staticBiographyText)
-                .padding()
+            .padding()
         }
-        .padding()
         .navigationBarTitle("Список студентів", displayMode: .inline)
     }
 }
@@ -57,3 +57,4 @@ struct ContentView_Previews: PreviewProvider {
         ContentView()
     }
 }
+
